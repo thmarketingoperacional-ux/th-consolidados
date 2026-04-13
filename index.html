@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TH Marketing — Consolidados Semanais</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e0e0e6;
+    --text-muted: #8b8fa3;
+    --blue: #60a5fa;
+    --green: #34d399;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  .container { max-width: 540px; width: 100%; padding: 32px 20px; }
+  .logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: var(--text-muted); font-size: .9rem; margin-bottom: 36px; }
+  .week-list { list-style: none; }
+  .week-list li { margin-bottom: 12px; }
+  .week-list a {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; text-decoration: none; color: var(--text);
+    transition: border-color .2s, transform .15s;
+  }
+  .week-list a:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .week-label { font-weight: 600; font-size: 1rem; }
+  .week-period { font-size: .82rem; color: var(--text-muted); margin-top: 2px; }
+  .week-badge { font-size: .75rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+  .badge-current { background: rgba(52,211,153,.12); color: var(--green); }
+  .badge-previous { background: rgba(139,143,163,.1); color: var(--text-muted); }
+  .arrow { color: var(--text-muted); font-size: 1.2rem; }
+  .footer { margin-top: 40px; text-align: center; font-size: .75rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">TH Marketing</div>
+  <div class="subtitle">Consolidados Semanais</div>
+  <ul class="week-list" id="weekList"></ul>
+  <div class="footer">Atualizado semanalmente toda segunda-feira</div>
+</div>
+<script>
+  // Weeks config - update this array each week (newest first, max 2)
+  const weeks = [
+    { date: '2026-04-13', period: '06/04 a 12/04/2026', label: 'Semana 13/04' },
+  ];
+
+  const list = document.getElementById('weekList');
+  weeks.forEach((w, i) => {
+    const li = document.createElement('li');
+    const badge = i === 0
+      ? '<span class="week-badge badge-current">Atual</span>'
+      : '<span class="week-badge badge-previous">Anterior</span>';
+    li.innerHTML = `
+      <a href="./${w.date}/">
+        <div>
+          <div class="week-label">${w.label}</div>
+          <div class="week-period">${w.period}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          ${badge}
+          <span class="arrow">&#8250;</span>
+        </div>
+      </a>
+    `;
+    list.appendChild(li);
+  });
+</script>
+</body>
+</html>

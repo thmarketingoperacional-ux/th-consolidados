@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consolidado Semanal — TH Marketing | 06-12/04/2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e0e0e6;
+    --text-muted: #8b8fa3;
+    --green: #34d399;
+    --green-bg: rgba(52,211,153,.12);
+    --yellow: #fbbf24;
+    --yellow-bg: rgba(251,191,36,.12);
+    --red: #f87171;
+    --red-bg: rgba(248,113,113,.12);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96,165,250,.12);
+    --purple: #a78bfa;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Header */
+  .header { margin-bottom: 32px; }
+  .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+  .header-meta { display: flex; gap: 24px; flex-wrap: wrap; color: var(--text-muted); font-size: .85rem; }
+
+  /* KPI Cards */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .kpi-card .label { font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); margin-bottom: 6px; }
+  .kpi-card .value { font-size: 1.6rem; font-weight: 700; }
+  .kpi-card .sub { font-size: .8rem; color: var(--text-muted); margin-top: 4px; }
+  .kpi-card.green .value { color: var(--green); }
+  .kpi-card.yellow .value { color: var(--yellow); }
+  .kpi-card.red .value { color: var(--red); }
+  .kpi-card.blue .value { color: var(--blue); }
+
+  /* Sections */
+  .section { margin-bottom: 32px; }
+  .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .section-title .toggle { font-size: .7rem; color: var(--text-muted); transition: transform .2s; }
+  .section-title.collapsed .toggle { transform: rotate(-90deg); }
+  .section-content { overflow: hidden; }
+  .section-content.hidden { display: none; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  thead th { background: var(--card); padding: 12px 14px; text-align: left; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .4px; color: var(--text-muted); border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; }
+  thead th:hover { color: var(--text); }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  tbody tr:hover { background: rgba(255,255,255,.03); }
+  tbody tr.total-row { background: rgba(96,165,250,.06); font-weight: 600; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .status.green { background: var(--green-bg); color: var(--green); }
+  .status.yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .status.red { background: var(--red-bg); color: var(--red); }
+  .status.paused { background: rgba(139,143,163,.12); color: var(--text-muted); }
+
+  .var-positive { color: var(--red); }
+  .var-negative { color: var(--green); }
+  .var-neutral { color: var(--text-muted); }
+
+  /* Alert Cards */
+  .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+  .alert-card { background: var(--card); border-radius: 12px; padding: 20px; border-left: 4px solid; }
+  .alert-card.red { border-left-color: var(--red); }
+  .alert-card.yellow { border-left-color: var(--yellow); }
+  .alert-card.blue { border-left-color: var(--blue); }
+  .alert-card .alert-title { font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
+  .alert-card .alert-body { font-size: .83rem; color: var(--text-muted); line-height: 1.6; }
+  .alert-card .alert-body strong { color: var(--text); }
+  .alert-card .alert-action { margin-top: 12px; font-size: .82rem; padding: 8px 12px; border-radius: 8px; font-weight: 600; }
+  .alert-card.red .alert-action { background: var(--red-bg); color: var(--red); }
+  .alert-card.yellow .alert-action { background: var(--yellow-bg); color: var(--yellow); }
+  .alert-card.blue .alert-action { background: var(--blue-bg); color: var(--blue); }
+
+  /* Opportunity cards */
+  .opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .opp-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .opp-card .opp-name { font-weight: 700; font-size: .95rem; margin-bottom: 4px; }
+  .opp-card .opp-cpa { color: var(--green); font-size: 1.2rem; font-weight: 700; }
+  .opp-card .opp-note { font-size: .8rem; color: var(--text-muted); margin-top: 8px; }
+
+  /* Priority list */
+  .priority-list { list-style: none; }
+  .priority-list li { padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; font-size: .88rem; display: flex; align-items: center; gap: 10px; }
+  .priority-list .prio-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; flex-shrink: 0; }
+  .priority-list .prio-num.red { background: var(--red-bg); color: var(--red); }
+  .priority-list .prio-num.yellow { background: var(--yellow-bg); color: var(--yellow); }
+
+  /* Bar chart */
+  .bar-chart { margin-top: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: .8rem; }
+  .bar-label { width: 140px; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); flex-shrink: 0; }
+  .bar-track { flex: 1; height: 22px; background: rgba(255,255,255,.04); border-radius: 4px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: .72rem; font-weight: 600; color: #fff; min-width: fit-content; }
+  .bar-value { margin-left: 8px; font-size: .78rem; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; width: 80px; }
+
+  @media (max-width: 768px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    .alert-grid { grid-template-columns: 1fr; }
+    .bar-label { width: 100px; font-size: .72rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Consolidado Semanal — TH Marketing</h1>
+    <div class="header-meta">
+      <span>Periodo: 06/04 a 12/04/2026</span>
+      <span>Gerado em: 13/04/2026</span>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card blue">
+      <div class="label">Gasto Total da Semana</div>
+      <div class="value">R$ 4.463,87</div>
+      <div class="sub">19 clientes ativos</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="label">Clientes Saudaveis</div>
+      <div class="value">12</div>
+      <div class="sub">63% do total</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="label">Monitorar</div>
+      <div class="value">5</div>
+      <div class="sub">CPA subindo</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="label">Atencao Urgente</div>
+      <div class="value">3</div>
+      <div class="sub">Acao necessaria</div>
+    </div>
+  </div>
+
+  <!-- Prioridades da Semana -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Prioridades da Semana</div>
+    <div class="section-content">
+      <ol class="priority-list">
+        <li><span class="prio-num red">1</span> <strong>Verificar pagamento MC Junior</strong> — R$ 1.500/sem parado, gasto R$ 0</li>
+        <li><span class="prio-num red">2</span> <strong>Investigar Dra Gilvanete</strong> — CPA dobrou (+129%), renovar criativos</li>
+        <li><span class="prio-num red">3</span> <strong>Reestruturar budget Carne de Sol</strong> — concentrar em Imagens Combo Sertanejo</li>
+        <li><span class="prio-num yellow">4</span> <strong>Verificar saldo Vo Linda e Du Gomes</strong> — gasto muito abaixo do orcamento</li>
+        <li><span class="prio-num yellow">5</span> <strong>Follow-up Imperio da Pizza</strong> — alertar cliente sobre follow-up no WhatsApp</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Alertas Urgentes -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Alertas Urgentes</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card red">
+          <div class="alert-title">MC Junior Pizzaria</div>
+          <div class="alert-body">
+            Gasto <strong>R$ 0,00</strong> na semana (orcamento R$ 1.500/sem — maior cliente em budget).<br>
+            Semana anterior: R$ 1.317,74 com 216 conversas + 43 compras.
+          </div>
+          <div class="alert-action">Verificar IMEDIATAMENTE se boleto/cartao foi pago</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Dra Gilvanete</div>
+          <div class="alert-body">
+            CPA saltou de <strong>R$ 6,59 &rarr; R$ 15,12</strong> (+129%).<br>
+            Resultados cairam de 11 &rarr; 8 conversas.
+          </div>
+          <div class="alert-action">Investigar fadiga de criativo e renovar videos</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Carne de Sol — VENDAS</div>
+          <div class="alert-body">
+            CPA R$ 14,08 (vs R$ 9,15 historico) — <strong>3a semana consecutiva acima</strong>.<br>
+            Imagens Combo Sertanejo performa melhor (CPA R$ 8,86, 17 compras).
+          </div>
+          <div class="alert-action">Concentrar budget em Imagens Combo Sertanejo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alertas Operacionais -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Alertas Operacionais</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card yellow">
+          <div class="alert-title">MC Junior</div>
+          <div class="alert-body">Gasto R$ 0 / R$ 1.500 (<strong>0%</strong>)</div>
+          <div class="alert-action">Verificar pagamento/saldo URGENTE</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Vo Linda</div>
+          <div class="alert-body">Gasto R$ 35,86 / R$ 150 (<strong>24%</strong>)</div>
+          <div class="alert-action">Verificar saldo/cartao/campanhas</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Du Gomes</div>
+          <div class="alert-body">Gasto R$ 66,73 / R$ 150 (<strong>44%</strong>)</div>
+          <div class="alert-action">Verificar saldo/cartao</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Atacaled Pavuna</div>
+          <div class="alert-body">Gasto R$ 107,76 / R$ 140 (<strong>77%</strong>)</div>
+          <div class="alert-action">Monitorar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela Geral -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Tabela Consolidada</div>
+    <div class="section-content">
+      <div class="table-wrap">
+        <table id="mainTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">#</th>
+              <th onclick="sortTable(1)">Cliente</th>
+              <th onclick="sortTable(2)">Tipo</th>
+              <th onclick="sortTable(3)">CPA Sem</th>
+              <th onclick="sortTable(4)">CPA Ant</th>
+              <th onclick="sortTable(5)">Var%</th>
+              <th onclick="sortTable(6)">Status</th>
+              <th onclick="sortTable(7)">Gasto Sem</th>
+              <th onclick="sortTable(8)">Orcamento</th>
+              <th onclick="sortTable(9)">% Orc</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td><td>Acai do Cheff</td><td>ENV-ZAP</td>
+              <td>R$ 4,85</td><td>R$ 3,62</td>
+              <td class="var-positive">+34%</td>
+              <td><span class="status yellow">Monitorar</span></td>
+              <td>R$ 184,48</td><td>R$ 210</td><td>88%</td>
+            </tr>
+            <tr>
+              <td>2</td><td>Atacaled Pavuna</td><td>ENV-ZAP</td>
+              <td>R$ 3,72</td><td>R$ 4,72</td>
+              <td class="var-negative">-21%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 107,76</td><td>R$ 140</td><td>77%</td>
+            </tr>
+            <tr>
+              <td>3</td><td>Big Burguer</td><td>ENV-ZAP</td>
+              <td>R$ 1,44</td><td>R$ 1,29</td>
+              <td class="var-positive">+12%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 132,31</td><td>R$ 150</td><td>88%</td>
+            </tr>
+            <tr>
+              <td>4</td><td>Camilla Carius</td><td>LEAD/ZAP</td>
+              <td>R$ 27,49</td><td>R$ 30,80</td>
+              <td class="var-negative">-11%</td>
+              <td><span class="status yellow">Monitorar</span></td>
+              <td>R$ 299,88</td><td>R$ 400</td><td>75%</td>
+            </tr>
+            <tr>
+              <td>5</td><td>Carne de Sol — VENDAS</td><td>VENDAS</td>
+              <td>R$ 14,08</td><td>R$ 17,39</td>
+              <td class="var-negative">-19%</td>
+              <td><span class="status red">Urgente</span></td>
+              <td>R$ 492,71</td><td>—</td><td>—</td>
+            </tr>
+            <tr>
+              <td>6</td><td>Carne de Sol — ZAP</td><td>ENV-ZAP</td>
+              <td>R$ 0,62</td><td>R$ 0,48</td>
+              <td class="var-positive">+29%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 29,98</td><td>—</td><td>—</td>
+            </tr>
+            <tr>
+              <td>7</td><td>Carne de Sol — TFG</td><td>TFG</td>
+              <td>R$ 0,09/clk</td><td>R$ 0,08</td>
+              <td class="var-positive">+13%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 60,94</td><td>—</td><td>—</td>
+            </tr>
+            <tr class="total-row">
+              <td>—</td><td>Carne de Sol (total)</td><td>—</td>
+              <td>—</td><td>—</td>
+              <td class="var-neutral">—</td>
+              <td>—</td>
+              <td>R$ 583,63</td><td>R$ 700</td><td>83%</td>
+            </tr>
+            <tr>
+              <td>8</td><td>Choperia Raiz</td><td>ENV-ZAP</td>
+              <td>R$ 7,01</td><td>R$ 4,47</td>
+              <td class="var-positive">+57%</td>
+              <td><span class="status yellow">Monitorar</span></td>
+              <td>R$ 126,10</td><td>R$ 150</td><td>84%</td>
+            </tr>
+            <tr>
+              <td>9</td><td>Colegio CESEC</td><td>ENV-ZAP</td>
+              <td>R$ 2,72</td><td>R$ 4,73</td>
+              <td class="var-negative">-42%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 244,64</td><td>R$ 210</td><td>116%</td>
+            </tr>
+            <tr>
+              <td>10</td><td>Digital Burger</td><td>TFG-SITE</td>
+              <td>R$ 0,18/clk</td><td>R$ 0,18</td>
+              <td class="var-neutral">0%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 753,53</td><td>R$ 780</td><td>97%</td>
+            </tr>
+            <tr>
+              <td>11</td><td>Dr Diego Coelho</td><td>ENV-ZAP</td>
+              <td>R$ 7,12</td><td>R$ 8,39</td>
+              <td class="var-negative">-15%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 99,66</td><td>pontual</td><td>—</td>
+            </tr>
+            <tr>
+              <td>12</td><td>Dra Gilvanete</td><td>ENV-ZAP</td>
+              <td>R$ 15,12</td><td>R$ 6,59</td>
+              <td class="var-positive">+129%</td>
+              <td><span class="status red">Urgente</span></td>
+              <td>R$ 120,99</td><td>R$ 150</td><td>81%</td>
+            </tr>
+            <tr>
+              <td>13</td><td>Du Gomes</td><td>ENV-ZAP</td>
+              <td>R$ 3,18</td><td>R$ 3,61</td>
+              <td class="var-negative">-12%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 66,73</td><td>R$ 150</td><td>44%</td>
+            </tr>
+            <tr>
+              <td>14</td><td>Imperio Beer Club</td><td>ENV-ZAP</td>
+              <td>R$ 2,15</td><td>R$ 2,80</td>
+              <td class="var-negative">-23%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 131,33</td><td>R$ 150</td><td>88%</td>
+            </tr>
+            <tr>
+              <td>15</td><td>Imperio da Pizza</td><td>ENV-ZAP</td>
+              <td>R$ 1,91</td><td>R$ 5,81</td>
+              <td class="var-negative">-67%</td>
+              <td><span class="status green">Saudavel*</span></td>
+              <td>R$ 131,63</td><td>R$ 150</td><td>88%</td>
+            </tr>
+            <tr>
+              <td>16</td><td>Mapua — ZAP</td><td>ENV-ZAP</td>
+              <td>R$ 0,79</td><td>R$ 0,80</td>
+              <td class="var-negative">-1%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 304,23</td><td>—</td><td>—</td>
+            </tr>
+            <tr>
+              <td>17</td><td>Mapua — VENDAS</td><td>VENDAS</td>
+              <td>R$ 1,15</td><td>R$ 1,08</td>
+              <td class="var-positive">+7%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 158,20</td><td>—</td><td>—</td>
+            </tr>
+            <tr>
+              <td>18</td><td>Mapua — LEAD</td><td>LEAD</td>
+              <td>R$ 1,15</td><td>R$ 1,09</td>
+              <td class="var-positive">+6%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 152,70</td><td>—</td><td>—</td>
+            </tr>
+            <tr class="total-row">
+              <td>—</td><td>Mapua (total)</td><td>—</td>
+              <td>—</td><td>—</td>
+              <td class="var-neutral">—</td>
+              <td>—</td>
+              <td>R$ 707,06</td><td>cartao</td><td>—</td>
+            </tr>
+            <tr>
+              <td>19</td><td>MC Junior</td><td>—</td>
+              <td>—</td><td>—</td>
+              <td class="var-positive">-100%</td>
+              <td><span class="status red">Urgente</span></td>
+              <td>R$ 0,00</td><td>R$ 1.500</td><td>0%</td>
+            </tr>
+            <tr>
+              <td>20</td><td>Paiva Odonto</td><td>ENV-ZAP</td>
+              <td>R$ 10,30</td><td>R$ 8,39</td>
+              <td class="var-positive">+23%</td>
+              <td><span class="status yellow">Monitorar</span></td>
+              <td>R$ 185,38</td><td>R$ 196</td><td>95%</td>
+            </tr>
+            <tr>
+              <td>21</td><td>Pinoli</td><td>ENV-ZAP</td>
+              <td>R$ 3,11</td><td>R$ 3,52</td>
+              <td class="var-negative">-12%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 86,96</td><td>R$ 100</td><td>87%</td>
+            </tr>
+            <tr>
+              <td>22</td><td>Rei do Lanche</td><td>ENV-ZAP</td>
+              <td>R$ 1,99</td><td>R$ 2,51</td>
+              <td class="var-negative">-21%</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 276,32</td><td>—</td><td>—</td>
+            </tr>
+            <tr>
+              <td>23</td><td>Acai da Manu</td><td>ENV-ZAP</td>
+              <td>R$ 4,47</td><td>R$ 2,07</td>
+              <td class="var-positive">+116%</td>
+              <td><span class="status yellow">Monitorar</span></td>
+              <td>R$ 277,13</td><td>—</td><td>—</td>
+            </tr>
+            <tr class="total-row">
+              <td>—</td><td>Rei+Manu (total)</td><td>—</td>
+              <td>—</td><td>—</td>
+              <td class="var-neutral">—</td>
+              <td>—</td>
+              <td>R$ 553,45</td><td>R$ 630</td><td>88%</td>
+            </tr>
+            <tr>
+              <td>24</td><td>Vo Linda</td><td>ENV-ZAP</td>
+              <td>R$ 1,89</td><td>R$ 2,51</td>
+              <td class="var-negative">-25%</td>
+              <td><span class="status green">Saudavel*</span></td>
+              <td>R$ 35,86</td><td>R$ 150</td><td>24%</td>
+            </tr>
+            <tr>
+              <td>—</td><td>Cantina do Cheff</td><td>—</td>
+              <td>—</td><td>—</td>
+              <td class="var-neutral">—</td>
+              <td><span class="status paused">Onboarding</span></td>
+              <td>R$ 0,00</td><td>—</td><td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gasto por Cliente (barra) -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Gasto Semanal por Cliente</div>
+    <div class="section-content">
+      <div class="bar-chart" id="barChart"></div>
+    </div>
+  </div>
+
+  <!-- Monitorar -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Monitorar</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card yellow">
+          <div class="alert-title">Acai do Cheff</div>
+          <div class="alert-body">CPA +34% (R$ 3,62 &rarr; R$ 4,85)</div>
+          <div class="alert-action">Sazonalidade outono. Monitorar proxima semana</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Acai da Manu</div>
+          <div class="alert-body">CPA +116% (R$ 2,07 &rarr; R$ 4,47)</div>
+          <div class="alert-action">Sazonalidade outono. Idem</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Choperia Raiz</div>
+          <div class="alert-body">CPA R$ 7,01; frequencia 3,88 na delivery</div>
+          <div class="alert-action">Cidade pequena (MG), publico limitado. Cliente em risco de churn</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Camilla Carius</div>
+          <div class="alert-body">CPA lead R$ 27,49</div>
+          <div class="alert-action">Ticket alto (arquitetura) justifica, mas cliente inativa</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Paiva Odonto</div>
+          <div class="alert-body">CPA +23% (R$ 8,39 &rarr; R$ 10,30)</div>
+          <div class="alert-action">Campanha nova puxando media pra cima. Historica segura em R$ 7,81</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Oportunidades de Escala -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Oportunidades de Escala</div>
+    <div class="section-content">
+      <div class="opp-grid">
+        <div class="opp-card">
+          <div class="opp-name">Big Burguer</div>
+          <div class="opp-cpa">CPA R$ 1,44</div>
+          <div class="opp-note">CPA consistente ha semanas — pode testar +10-20% budget</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Imperio Beer Club</div>
+          <div class="opp-cpa">CPA R$ 2,15</div>
+          <div class="opp-note">Performance solida — pode escalar se cliente quiser mais festas</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Colegio CESEC</div>
+          <div class="opp-cpa">CPA R$ 2,72</div>
+          <div class="opp-note">Semana excelente — acompanhar 1 semana mais antes de escalar</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Mapua Salgados</div>
+          <div class="opp-cpa">CPA R$ 0,79</div>
+          <div class="opp-note">Ja opera em escala alta, mas se Rafael aumentar budget, ha espaco</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sazonalidade -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Sazonalidade — Acai (Outono/Inverno)</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card blue">
+          <div class="alert-title">Tendencia esperada</div>
+          <div class="alert-body">
+            <strong>Acai do Cheff:</strong> CPA subiu 34% &rarr; R$ 4,85<br>
+            <strong>Acai da Manu:</strong> CPA subiu 116% &rarr; R$ 4,47<br><br>
+            CPAs de acai continuarao subindo nos proximos meses. Nao trocar criativos por causa de sazonalidade. Considerar reducao gradual de budget se CPA ultrapassar R$ 6-7.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Toggle sections
+function toggleSection(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  content.classList.toggle('hidden');
+}
+
+// Bar chart
+const clients = [
+  {name:'Digital Burger', value:753.53},
+  {name:'Mapua (total)', value:707.06},
+  {name:'Carne de Sol (total)', value:583.63},
+  {name:'Rei+Manu (total)', value:553.45},
+  {name:'Camilla Carius', value:299.88},
+  {name:'Acai da Manu', value:277.13},
+  {name:'Rei do Lanche', value:276.32},
+  {name:'Colegio CESEC', value:244.64},
+  {name:'Paiva Odonto', value:185.38},
+  {name:'Acai do Cheff', value:184.48},
+  {name:'Big Burguer', value:132.31},
+  {name:'Imperio da Pizza', value:131.63},
+  {name:'Imperio Beer Club', value:131.33},
+  {name:'Choperia Raiz', value:126.10},
+  {name:'Dra Gilvanete', value:120.99},
+  {name:'Atacaled Pavuna', value:107.76},
+  {name:'Dr Diego Coelho', value:99.66},
+  {name:'Pinoli', value:86.96},
+  {name:'Du Gomes', value:66.73},
+  {name:'Vo Linda', value:35.86},
+  {name:'MC Junior', value:0},
+];
+const maxVal = clients[0].value;
+const chart = document.getElementById('barChart');
+
+clients.forEach(c => {
+  const pct = maxVal > 0 ? (c.value / maxVal * 100) : 0;
+  let color = 'var(--blue)';
+  if (c.value === 0) color = 'var(--red)';
+  else if (c.value < 80) color = 'var(--yellow)';
+  else if (c.value > 500) color = 'var(--green)';
+
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = `
+    <span class="bar-label">${c.name}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${Math.max(pct,1)}%;background:${color}"></div></div>
+    <span class="bar-value">R$ ${c.value.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+  `;
+  chart.appendChild(row);
+});
+
+// Simple table sort
+let sortDir = {};
+function sortTable(col) {
+  const table = document.getElementById('mainTable');
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  sortDir[col] = !sortDir[col];
+  const dir = sortDir[col] ? 1 : -1;
+
+  rows.sort((a,b) => {
+    let aVal = a.cells[col]?.textContent.trim() || '';
+    let bVal = b.cells[col]?.textContent.trim() || '';
+    // Try numeric
+    const aNum = parseFloat(aVal.replace(/[R$\s%,]/g,'').replace(',','.'));
+    const bNum = parseFloat(bVal.replace(/[R$\s%,]/g,'').replace(',','.'));
+    if (!isNaN(aNum) && !isNaN(bNum)) return (aNum - bNum) * dir;
+    return aVal.localeCompare(bVal,'pt-BR') * dir;
+  });
+  rows.forEach(r => tbody.appendChild(r));
+}
+</script>
+
+</body>
+</html>
