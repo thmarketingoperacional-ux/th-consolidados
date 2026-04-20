@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Consolidado Google Ads — Semana 19/04</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --border: #2a2e38;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --ok: #34a853;
+    --att: #fbbc04;
+    --alert: #ea4335;
+    --nb: #5f6368;
+    --accent: #4285f4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.5; padding: 24px; max-width: 1400px; margin: 0 auto; }
+  header { border-bottom: 2px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
+  header h1 { font-size: 28px; margin-bottom: 8px; }
+  header .meta { color: var(--muted); font-size: 14px; }
+  .platform-badge { display: inline-block; background: var(--accent); color: white; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  section h2 { font-size: 18px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 14px; }
+  .kpi-card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; margin-bottom: 4px; }
+  .kpi-card .value { font-size: 24px; font-weight: 600; }
+  .kpi-card.alert .value { color: var(--alert); }
+  .kpi-card.ok .value { color: var(--ok); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .status.ok { color: var(--ok); }
+  .status.att { color: var(--att); }
+  .status.alert { color: var(--alert); }
+  .status.nb { color: var(--nb); }
+  .deep-dive { background: rgba(234,67,53,0.08); border-left: 3px solid var(--alert); padding: 16px; margin-bottom: 12px; border-radius: 4px; }
+  .deep-dive h3 { font-size: 16px; margin-bottom: 8px; }
+  .deep-dive .problema { color: var(--alert); font-weight: 600; margin-bottom: 10px; }
+  .deep-dive ul { margin: 8px 0 12px 20px; font-size: 13px; }
+  .deep-dive .acao { background: var(--card); padding: 10px 12px; border-radius: 4px; font-size: 13px; margin-top: 8px; }
+  .deep-dive .acao b { color: var(--accent); }
+  .opp { background: rgba(52,168,83,0.08); border-left: 3px solid var(--ok); padding: 12px 16px; margin-bottom: 8px; border-radius: 4px; }
+  .inter { background: rgba(251,188,4,0.08); border-left: 3px solid var(--att); padding: 12px 16px; margin-bottom: 8px; border-radius: 4px; }
+  details { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin-bottom: 6px; }
+  details summary { cursor: pointer; font-weight: 600; }
+  details[open] summary { margin-bottom: 8px; }
+  .glossary dt { font-weight: 600; color: var(--accent); margin-top: 12px; margin-bottom: 2px; font-size: 14px; }
+  .glossary dd { color: var(--text); font-size: 13px; margin-bottom: 4px; padding-left: 12px; }
+  .glossary dd em { color: var(--muted); font-style: normal; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .footer { color: var(--muted); font-size: 12px; text-align: center; padding: 20px 0; }
+  tr:hover { background: rgba(66,133,244,0.04); }
+  .table-scroll { overflow-x: auto; }
+  .client-group { background: rgba(66,133,244,0.05); font-weight: 600; }
+  .dormente { color: var(--nb); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Consolidado Google Ads <span class="platform-badge">GOOGLE</span></h1>
+  <div class="meta">
+    <strong>Publicado:</strong> 20/04/2026 (segunda-feira) &nbsp;·&nbsp;
+    <strong>Periodo coberto:</strong> 30/03 a 19/04/2026 &nbsp;·&nbsp;
+    <strong>Semanas:</strong> S1 (30/03-05/04) · S2 (06/04-12/04) · S3 (13/04-19/04)
+  </div>
+</header>
+
+<section>
+  <h2>Resumo Executivo</h2>
+  <div class="kpis">
+    <div class="kpi-card"><div class="label">Gasto total (mes)</div><div class="value">R$ 5.063,64</div></div>
+    <div class="kpi-card"><div class="label">Conversoes</div><div class="value">493</div></div>
+    <div class="kpi-card ok"><div class="label">CPA Ponderado</div><div class="value">R$ 10,27</div></div>
+    <div class="kpi-card"><div class="label">Campanhas Saudaveis</div><div class="value">5/14 (36%)</div></div>
+    <div class="kpi-card alert"><div class="label">Em Alerta</div><div class="value">4 🔴 · 2 🟡</div></div>
+  </div>
+  <p style="margin-top:12px; font-size:12px; color:var(--muted)">Ultima semana avaliada: <strong>S3 (13/04-19/04)</strong>. Classificacao compara CPA da ultima semana com CPA Medio historico de cada campanha.</p>
+</section>
+
+<section><h2>🔴 Prioridades — Diagnostico por Funil</h2>
+
+<div class="deep-dive">
+  <h3>Dr. Felipe Fernandes — Neurocirurgião Barra da Tijuca</h3>
+  <p><strong>CPA Real:</strong> R$ 55,61 · <strong>CPA Medio:</strong> R$ 36,33 · <strong>Variacao:</strong> +53% · <strong>Gasto mes:</strong> R$ 667,36</p>
+  <p class="problema">Diagnostico duplo: <b>leilao</b> + <b>landing page</b></p>
+  <ul>
+    <li><b>Lost IS (rank) 62%</b> — o Google esta deixando a concorrencia aparecer mais porque considera o anuncio/landing menos relevante</li><li><b>Taxa de conversao 3,8%</b> (saudavel: acima de 5%) — das pessoas que clicam, poucas viram paciente. Problema na landing (velocidade, formulario, oferta)</li><li>CTR 5% esta ok — anuncio atrai, mas quando a pessoa vai ao site, nao converte</li><li><b>IS caindo consistentemente:</b> 49% → 47% → 37%</li>
+  </ul>
+  <div class="acao"><b>Acao sugerida:</b> Auditar a landing page (velocidade, clareza da oferta, formulario de contato) e revisar quality score das keywords principais</div>
+</div>
+
+<div class="deep-dive">
+  <h3>Dra. Carina de Paula — [PQ] [GTR] - Barra da Tijuca 2</h3>
+  <p><strong>CPA Real:</strong> R$ 6,86 · <strong>CPA Medio:</strong> R$ 5,18 · <strong>Variacao:</strong> +77% · <strong>Gasto mes:</strong> R$ 466,17</p>
+  <p class="problema"><b>Orcamento engasgando</b> — problema de crescimento, nao de performance</p>
+  <ul>
+    <li>CTR subiu de 11% para 18% — anuncio esta atraindo mais</li><li>Mas taxa de conversao caiu de 56% para 34%</li><li><b>Lost IS (budget) disparou: 2% → 18% → 39%</b> — quase 40% das buscas sao perdidas porque o orcamento diario acaba</li><li>Lost IS (rank) caiu de 30% para 18% — qualidade esta <b>melhorando</b></li>
+  </ul>
+  <div class="acao"><b>Acao sugerida:</b> Aumentar orcamento OU restringir keywords para pegar so as mais qualificadas. O volume adicional esta vindo menos qualificado.</div>
+</div>
+
+<div class="deep-dive">
+  <h3>Dra. Felícia Holanda — [PQ] [PED] - Barra da Tijuca</h3>
+  <p><strong>CPA Real:</strong> R$ 23,34 · <strong>CPA Medio:</strong> R$ 13,93 · <strong>Variacao:</strong> +68% · <strong>Gasto mes:</strong> R$ 350,04</p>
+  <p class="problema">Problema 100% de <b>leilao</b></p>
+  <ul>
+    <li><b>Lost IS (rank) 83%</b> — praticamente nao aparece no leilao por qualidade/lance baixo</li><li>IS apenas 17% (caiu de 22% para 17%)</li><li>CTR 8,2% e taxa de conversao 20,6% — <b>quando aparece, converte muito bem</b></li><li>Problema e que quase nao aparece</li>
+  </ul>
+  <div class="acao"><b>Acao sugerida:</b> Cliente sai em 27/05. Nao vale esforco estrutural. Aumento pontual de lance se quiser manter volume ate a saida.</div>
+</div>
+
+<div class="deep-dive">
+  <h3>Dra. Gilvanete Lima — PQ | Psicóloga Duque de Caxias</h3>
+  <p><strong>CPA Real:</strong> R$ 4,88 · <strong>CPA Medio:</strong> R$ 4,88 · <strong>Variacao:</strong> +60% · <strong>Gasto mes:</strong> R$ 156,18</p>
+  <p class="problema"><b>Tendencia de piora</b> + <b>queda brusca de orcamento na ultima semana</b></p>
+  <ul>
+    <li>CPA subindo consistentemente: S1 R$ 3,93 → S2 R$ 4,92 → <b>S3 R$ 7,79</b></li><li>Gasto na semana despencou: S2 R$ 93,52 → <b>S3 R$ 23,37</b> (-75%)</li><li>Conversoes cairam de 19 para 3 — pode ser falta de saldo, pausa manual ou problema de pagamento</li><li>Baseline de R$ 4,88 foi estabelecido com apenas 3 semanas de dados — pode precisar de ajuste conforme acumula historico</li><li><b>Contexto especial:</b> cliente e mae da esposa do CEO Thiago Peixoto — atencao na qualidade da entrega</li>
+  </ul>
+  <div class="acao"><b>Acao sugerida:</b> Verificar primeiro se houve pausa manual ou problema de pagamento na S3. Se pagamento OK, entrar nas metricas de funil para diagnostico (CTR, IS, taxa de conversao). Considerar manter baseline em observacao ate ter 6-8 semanas de dados.</div>
+</div>
+</section>
+<section><h2>🟢 Oportunidades de Escala</h2>
+<p style="font-size:13px; color:var(--muted); margin-bottom:12px">Campanhas com CPA consistentemente abaixo do medio. Considerar aumento de orcamento.</p>
+
+<div class="opp">
+  <strong>Dra. Andrea Vasco</strong> — PQ - Alergista Duque de Caxias 2<br>
+  CPA Real <strong>R$ 8,88</strong> vs Medio R$ 18,08 (-51%) · 2 conv · R$ 17,76 gasto no mes
+</div>
+
+<div class="opp">
+  <strong>Dra. Marianna Ecard</strong> — Psiquiatra infantil 2 - CPA Desejado<br>
+  CPA Real <strong>R$ 10,69</strong> vs Medio R$ 14,77 (-28%) · 61 conv · R$ 651,96 gasto no mes
+</div>
+
+<div class="opp">
+  <strong>Dra. Aline</strong> — [PQ] [CS] [GTR] - Caxias 3<br>
+  CPA Real <strong>R$ 9,05</strong> vs Medio R$ 10,68 (-15%) · 103 conv · R$ 931,78 gasto no mes
+</div>
+</section>
+<section><h2>Tabela Completa — Todas as Campanhas Ativas</h2>
+<div class="table-scroll"><table>
+<thead><tr><th>Cliente</th><th>Campanha</th><th>Tipo</th><th>CPA Médio</th><th>CPA Real</th><th>CPA S1</th><th>Gasto S1</th><th>CPA S2</th><th>Gasto S2</th><th>CPA S3</th><th>Gasto S3</th><th>Gasto Mês</th></tr></thead><tbody>
+<tr><td>Dr. Felipe Fernandes</td><td>Neurocirurgião Barra da Tijuca</td><td>SEARCH</td><td class="num">R$ 36,33</td><td class="num"><span class="status alert">🔴 R$ 55,61</span></td><td class="num"><span class="status alert">🔴 R$ 65,46</span></td><td class="num">R$ 235,65</td><td class="num"><span class="status ok">🟢 R$ 42,13</span></td><td class="num">R$ 269,64</td><td class="num"><span class="status alert">🔴 R$ 81,04</span></td><td class="num">R$ 162,07</td><td class="num"><strong>R$ 667,36</strong></td></tr>
+<tr><td>Dra. Aline</td><td>[PQ] [CS] [GTR] - Caxias 3</td><td>SEARCH</td><td class="num">R$ 10,68</td><td class="num"><span class="status ok">🟢 R$ 9,05</span></td><td class="num"><span class="status ok">🟢 R$ 8,46</span></td><td class="num">R$ 236,93</td><td class="num"><span class="status ok">🟢 R$ 8,44</span></td><td class="num">R$ 337,63</td><td class="num"><span class="status ok">🟢 R$ 10,21</span></td><td class="num">R$ 357,22</td><td class="num"><strong>R$ 931,78</strong></td></tr>
+<tr><td>Dra. Andrea Vasco</td><td>PQ - Alergista Barra da Tijuca 2</td><td>SEARCH</td><td class="num">R$ 9,88</td><td class="num"><span class="status att">🟡 R$ 12,12</span></td><td class="num"><span class="status att">🟡 R$ 12,12</span></td><td class="num">R$ 48,47</td><td class="num">/</td><td class="num">/</td><td class="num">/</td><td class="num">/</td><td class="num"><strong>R$ 48,47</strong></td></tr>
+<tr><td>Dra. Andrea Vasco</td><td>PQ - Alergista Duque de Caxias 2</td><td>SEARCH</td><td class="num">R$ 18,08</td><td class="num"><span class="status ok">🟢 R$ 8,88</span></td><td class="num"><span class="status ok">🟢 R$ 17,73</span></td><td class="num">R$ 17,73</td><td class="num">/</td><td class="num">/</td><td class="num"><span class="status ok">🟢 R$ 0,03</span></td><td class="num">R$ 0,03</td><td class="num"><strong>R$ 17,76</strong></td></tr>
+<tr><td>Dra. Carina de Paula</td><td>[PQ] [GTR] - Barra da Tijuca 2</td><td>SEARCH</td><td class="num">R$ 5,18</td><td class="num"><span class="status alert">🔴 R$ 6,86</span></td><td class="num"><span class="status att">🟡 R$ 6,55</span></td><td class="num">R$ 130,95</td><td class="num"><span class="status ok">🟢 R$ 5,67</span></td><td class="num">R$ 170,24</td><td class="num"><span class="status alert">🔴 R$ 9,17</span></td><td class="num">R$ 164,97</td><td class="num"><strong>R$ 466,17</strong></td></tr>
+<tr><td>Dra. Carina de Paula</td><td>[PQ] [GTR] - Duque de Caxias</td><td>SEARCH</td><td class="num">R$ 8,76</td><td class="num"><span class="status att">🟡 R$ 8,76</span></td><td class="num"><span class="status ok">🟢 R$ 8,33</span></td><td class="num">R$ 116,65</td><td class="num"><span class="status ok">🟢 R$ 7,57</span></td><td class="num">R$ 196,73</td><td class="num"><span class="status att">🟡 R$ 11,08</span></td><td class="num">R$ 177,33</td><td class="num"><strong>R$ 490,70</strong></td></tr>
+<tr><td>Dra. Carina de Paula</td><td>[PQ] [GTR] - Botafogo</td><td>SEARCH</td><td class="num">R$ 5,50</td><td class="num"><span class="status ok">🟢 R$ 5,91</span></td><td class="num"><span class="status att">🟡 R$ 7,69</span></td><td class="num">R$ 184,58</td><td class="num"><span class="status ok">🟢 R$ 5,42</span></td><td class="num">R$ 238,47</td><td class="num"><span class="status ok">🟢 R$ 5,36</span></td><td class="num">R$ 203,71</td><td class="num"><strong>R$ 626,75</strong></td></tr>
+<tr><td>Dra. Felicia Holanda</td><td>[PQ] [PED] - Barra da Tijuca</td><td>SEARCH</td><td class="num">R$ 13,93</td><td class="num"><span class="status alert">🔴 R$ 23,34</span></td><td class="num">/</td><td class="num">/</td><td class="num"><span class="status alert">🔴 R$ 21,88</span></td><td class="num">R$ 175,02</td><td class="num"><span class="status alert">🔴 R$ 25,00</span></td><td class="num">R$ 175,01</td><td class="num"><strong>R$ 350,04</strong></td></tr>
+<tr><td>Dra. Gilvanete Lima</td><td>PQ | Psicóloga Duque de Caxias</td><td>SEARCH</td><td class="num">R$ 4,88</td><td class="num"><span class="status alert">🔴 R$ 4,88</span></td><td class="num"><span class="status ok">🟢 R$ 3,93</span></td><td class="num">R$ 39,29</td><td class="num"><span class="status ok">🟢 R$ 4,92</span></td><td class="num">R$ 93,52</td><td class="num"><span class="status alert">🔴 R$ 7,79</span></td><td class="num">R$ 23,37</td><td class="num"><strong>R$ 156,18</strong></td></tr>
+<tr><td>Dra. Marianna Ecard</td><td>Psiquiatra infantil 2 - CPA Desejado</td><td>SEARCH</td><td class="num">R$ 14,77</td><td class="num"><span class="status ok">🟢 R$ 10,69</span></td><td class="num"><span class="status ok">🟢 R$ 9,85</span></td><td class="num">R$ 147,81</td><td class="num"><span class="status ok">🟢 R$ 9,40</span></td><td class="num">R$ 282,00</td><td class="num"><span class="status ok">🟢 R$ 13,88</span></td><td class="num">R$ 222,14</td><td class="num"><strong>R$ 651,96</strong></td></tr>
+<tr><td>Dra. Raisa Satyro</td><td>PQ | Neuropediatra Barra</td><td>SEARCH</td><td class="num">R$ 13,30</td><td class="num"><span class="status ok">🟢 R$ 13,30</span></td><td class="num"><span class="status ok">🟢 R$ 15,39</span></td><td class="num">R$ 153,92</td><td class="num"><span class="status ok">🟢 R$ 12,04</span></td><td class="num">R$ 156,55</td><td class="num"><span class="status ok">🟢 R$ 12,90</span></td><td class="num">R$ 141,87</td><td class="num"><strong>R$ 452,34</strong></td></tr>
+<tr><td>MC Junior Pizzaria</td><td>Pizza</td><td>SEARCH</td><td class="num">—</td><td class="num">/</td><td class="num">/</td><td class="num">/</td><td class="num">/</td><td class="num">R$ 81,05</td><td class="num">/</td><td class="num">/</td><td class="num"><strong>R$ 81,05</strong></td></tr>
+<tr><td>MC Junior Pizzaria</td><td>[Youtube] [In-stream] [CPV] - Visitas no site</td><td>VIDEO</td><td class="num">—</td><td class="num">/</td><td class="num">/</td><td class="num">R$ 0,30</td><td class="num">/</td><td class="num">R$ 59,97</td><td class="num">/</td><td class="num">R$ 0,05</td><td class="num"><strong>R$ 60,31</strong></td></tr>
+<tr><td>MC Junior Pizzaria</td><td>[Youtube] [In-stream] [CPM] - Visitas no site</td><td>VIDEO</td><td class="num">—</td><td class="num">/</td><td class="num">/</td><td class="num">R$ 0,35</td><td class="num">/</td><td class="num">R$ 61,92</td><td class="num">/</td><td class="num">R$ 0,49</td><td class="num"><strong>R$ 62,76</strong></td></tr>
+</tbody></table></div>
+</section>
+<section><h2>⚠️ Campanhas Intermitentes</h2>
+<p style="font-size:13px; color:var(--muted); margin-bottom:12px">Campanhas com atividade apenas em 1 semana. Verificar se pausou, teve falta de saldo ou problema.</p>
+
+<div class="inter">
+  <strong>MC Junior Pizzaria</strong> — Pizza (SEARCH)<br>
+  Gasto total: R$ 81,05 · Conversoes: 0
+</div>
+
+<div class="inter">
+  <strong>MC Junior Pizzaria</strong> — [Youtube] [In-stream] [CPV] - Visitas no site (VIDEO)<br>
+  Gasto total: R$ 60,31 · Conversoes: 0
+</div>
+
+<div class="inter">
+  <strong>MC Junior Pizzaria</strong> — [Youtube] [In-stream] [CPM] - Visitas no site (VIDEO)<br>
+  Gasto total: R$ 62,76 · Conversoes: 0
+</div>
+
+<div class="inter">
+  <strong>Dra. Andrea Vasco</strong> — PQ - Alergista Barra da Tijuca 2 (SEARCH)<br>
+  Gasto total: R$ 48,47 · Conversoes: 4
+</div>
+
+<div class="inter">
+  <strong>Dra. Andrea Vasco</strong> — PQ - Alergista Duque de Caxias 2 (SEARCH)<br>
+  Gasto total: R$ 17,76 · Conversoes: 2
+</div>
+</section>
+<section><h2>💤 Campanhas Dormentes (1)</h2>
+<p style="font-size:13px; color:var(--muted); margin-bottom:8px">Campanhas com gasto insignificante no periodo — provavelmente pausadas ou em processo de saida. Ignoradas nos totais e metricas.</p>
+<div class="dormente">• Dra. Andrea Turibio — PQ | Neuropediatra Barra 3* (R$ 0,06 no mes)</div>
+</section>
+<section><h2>Contexto Especial</h2>
+<p><strong>📤 Clientes em saida (nao investir em otimizacoes estruturais):</strong></p><ul>
+<li>Dra. Andrea Turibio — ultima veiculacao: 2026-05-24</li>
+<li>Dra. Felicia Holanda — ultima veiculacao: 2026-05-27</li>
+</ul>
+<p style="margin-top:12px"><strong>🆕 Clientes novos (fase de aprendizagem — nao julgar CPA nas primeiras 4-6 semanas):</strong></p><ul>
+<li>Dra. Raisa Satyro</li>
+</ul>
+</section>
+
+<section>
+  <h2>📖 Glossario de Metricas</h2>
+  <div class="legend" style="margin-bottom:16px">
+    <span><span class="status ok">🟢</span> Dentro do CPA Medio (ou ate +20%)</span>
+    <span><span class="status att">🟡</span> Um pouco acima (+20% a +50%)</span>
+    <span><span class="status alert">🔴</span> Extrapolado (acima de +50%)</span>
+    <span><span class="status nb">—</span> Sem baseline estabelecido</span>
+    <span>/ Sem veiculacao na semana</span>
+  </div>
+
+  <dl class="glossary">
+    <dt>CPA Medio</dt>
+    <dd>Custo por conversao <strong>historico</strong> estabelecido para aquela campanha especifica. E a referencia propria de cada cliente — nao existe benchmark universal no Google Ads. <em>Exemplo: CPA Medio R$ 5,50 significa que historicamente essa campanha converte por R$ 5,50.</em></dd>
+
+    <dt>CPA Real</dt>
+    <dd>Custo por conversao que a campanha esta <strong>entregando agora</strong> (ultima semana). Se esta acima do CPA Medio, a campanha piorou. <em>Exemplo: CPA Real R$ 9,00 com CPA Medio R$ 5,50 = +64%, ou seja, cada paciente esta custando 64% mais que o normal.</em></dd>
+
+    <dt>CPA S1, S2, S3...</dt>
+    <dd>Custo por conversao <strong>por semana do mes</strong>. S1 = primeira semana, S2 = segunda, etc. Ajuda a ver tendencias (subindo, caindo, oscilando).</dd>
+
+    <dt>Conversao</dt>
+    <dd>Acao que o cliente considera valiosa — normalmente e um lead (mensagem, formulario preenchido, ligacao). <em>Cada conta configura o que conta como conversao.</em></dd>
+
+    <dt>CTR (Click-Through Rate / Taxa de Clique)</dt>
+    <dd>Das pessoas que <strong>viram</strong> o anuncio, quantas clicaram. Em Search (pesquisa), um CTR saudavel fica <strong>acima de 3%</strong>. Abaixo de 1% indica anuncio pouco atrativo ou keywords muito amplas.</dd>
+
+    <dt>CPC Medio (Custo Por Clique)</dt>
+    <dd>Quanto voce paga em media por cada clique. Depende do nicho — saude e medicina costumam ter CPC entre R$ 2 e R$ 10. CPC alto + CTR baixo = competicao acirrada + anuncio nao atraente.</dd>
+
+    <dt>Taxa de Conversao</dt>
+    <dd>Das pessoas que <strong>clicaram</strong> no anuncio, quantas converteram. Saudavel em Search: acima de 5%. <em>Se a taxa e baixa, o problema geralmente nao e o Ads — e a landing page (carregamento, formulario, oferta).</em></dd>
+
+    <dt>Impressoes</dt>
+    <dd>Numero de vezes que o anuncio <strong>foi exibido</strong>. Nao importa se alguem clicou — so importa se apareceu na tela.</dd>
+
+    <dt>IS (Impression Share / Parcela de Impressoes)</dt>
+    <dd>Das vezes que seu anuncio <strong>poderia ter aparecido</strong>, em quantas ele realmente apareceu. <em>Exemplo: IS 60% significa que em 60 de cada 100 pesquisas elegiveis, voce apareceu. Nas outras 40, perdeu o leilao.</em></dd>
+
+    <dt>Lost IS (rank) — Parcela perdida por posicao</dt>
+    <dd>Das vezes que voce <strong>nao</strong> apareceu, quantas foram porque o Google considerou seu anuncio inferior ao concorrente (por qualidade ou por lance baixo). <strong>Lost IS (rank) alto = problema de qualidade ou lance.</strong> <em>Solucoes: melhorar quality score das keywords, aumentar lance, revisar landing page.</em></dd>
+
+    <dt>Lost IS (budget) — Parcela perdida por orcamento</dt>
+    <dd>Das vezes que voce nao apareceu, quantas foram porque <strong>o orcamento diario esgotou antes do fim do dia</strong>. <strong>Lost IS (budget) alto = a campanha esta performando bem, so falta grana para aparecer mais.</strong> <em>Solucao: aumentar orcamento ou restringir keywords para pegar so as mais qualificadas.</em></dd>
+
+    <dt>Top IS (Parcela no Topo)</dt>
+    <dd>Das vezes que apareceu, em quantas apareceu na <strong>parte superior</strong> da pagina (acima dos resultados organicos). Top IS alto = mais destaque, mais cliques.</dd>
+
+    <dt>Abs Top IS (Parcela no Topo Absoluto)</dt>
+    <dd>Das vezes que apareceu, em quantas foi na <strong>posicao #1</strong> (primeiro resultado pago). Nao precisa ser 100% — pode ser estrategico nao brigar por 1o lugar quando custa muito.</dd>
+
+    <dt>Quality Score (Indice de Qualidade)</dt>
+    <dd>Nota de 1 a 10 que o Google da para cada palavra-chave. Mede 3 coisas: (1) taxa de clique esperada, (2) relevancia do anuncio, (3) experiencia na landing page. <strong>Nota alta = paga menos E aparece mais.</strong> <em>Se o Lost IS (rank) esta alto, geralmente o quality score esta baixo.</em></dd>
+
+    <dt>Ligacoes Telefonicas</dt>
+    <dd>Quando a campanha tem <strong>extensao de chamada</strong> ativa, o Google conta as ligacoes iniciadas a partir do anuncio. Conta como conversao secundaria.</dd>
+
+    <dt>Todas as Conversoes vs Conversoes</dt>
+    <dd>"Conversoes" = apenas a acao primaria configurada (ex: envio de formulario). "Todas as conversoes" inclui conversoes secundarias (visita a pagina-chave, ligacao de 30s, etc). <em>Quando "Todas" e muito maior que "Conversoes", a conta esta gerando engajamento mas nao fechamento — refinar objetivo de conversao.</em></dd>
+
+    <dt>"/" na tabela</dt>
+    <dd>Significa que a campanha <strong>nao veiculou naquela semana</strong> (orcamento zerado, pausada ou sem elegibilidade).</dd>
+
+    <dt>"—" na tabela</dt>
+    <dd>Significa que aquela campanha ainda <strong>nao tem CPA Medio estabelecido</strong> como referencia. Normal para clientes novos (menos de 4-6 semanas) ou campanhas reformuladas. Dados aparecem mas sem classificacao de cor ate o baseline ser definido.</dd>
+  </dl>
+</section>
+
+
+<div class="footer">
+  Consolidado gerado automaticamente em 20/04/2026 · Dados via Google Ads API v20 · TH Marketing
+</div>
+</body></html>
