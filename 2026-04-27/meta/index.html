@@ -140,8 +140,8 @@
   <div class="kpi-row">
     <div class="kpi-card blue">
       <div class="label">Gasto Total da Semana</div>
-      <div class="value">R$ 5.133,78</div>
-      <div class="sub">+27% vs S3 (R$ 4.038,29) &mdash; inclui Brandao manual</div>
+      <div class="value">R$ 5.239,07</div>
+      <div class="sub">+30% vs S3 (R$ 4.038,29) &mdash; inclui Brandao + Confia manuais</div>
     </div>
     <div class="kpi-card green">
       <div class="label">Clientes Saudaveis</div>
@@ -480,11 +480,11 @@
               <td>R$ 243,28</td><td>R$ 245/sem</td><td>99%</td>
             </tr>
             <tr>
-              <td>30</td><td>Confia Pizzaria <small>(parecer manual)</small></td><td>&mdash;</td>
-              <td>&mdash;</td><td>&mdash;</td>
-              <td class="var-neutral">&mdash;</td>
+              <td>30</td><td>Confia Pizzaria <small>(parecer manual)</small></td><td>ENV-ZAP</td>
+              <td>R$ 3,01</td><td>R$ 2,19</td>
+              <td class="var-positive">+37%</td>
               <td><span class="status yellow">Monitorar</span></td>
-              <td>&mdash;</td><td>&mdash;</td><td>&mdash;</td>
+              <td>R$ 105,29</td><td>~R$ 200/sem</td><td>53%</td>
             </tr>
           </tbody>
         </table>
@@ -518,11 +518,11 @@
         <div class="alert-card yellow">
           <div class="alert-title">Confia Pizzaria</div>
           <div class="alert-body">
-            Cliente <strong>nao responde ha semanas</strong>. Campanhas seguem rodando normalmente sem intervencao.<br>
-            Cliente "morno" &mdash; ainda <strong>nao apontou bons resultados</strong> das campanhas.<br>
-            Risco passivo: ausencia + sem retorno positivo.
+            <strong>S4 (20-26/04):</strong> 35 conversas / R$ 105,29 / CPA <strong>R$ 3,01</strong> (saudavel).<br>
+            <strong>3 ultimas semanas estaveis:</strong> R$ 2,57 &rarr; R$ 2,19 &rarr; R$ 3,01 (CPA dentro do realista de delivery).<br>
+            Cliente <strong>nao responde ha semanas</strong> e percebe como "morno" mesmo com metricas OK &mdash; provavel falta de follow-up dos leads no WhatsApp (igual Imperio Pizza e CESEC).
           </div>
-          <div class="alert-action">Tentar contato proativo &mdash; se silencio passar de +1-2 semanas, escalar</div>
+          <div class="alert-action">Contato proativo trazendo os 35 conv / R$ 3,01 como argumento</div>
         </div>
       </div>
     </div>
@@ -730,6 +730,7 @@ const clients = [
   {name:'Atacaled Pavuna', value:116.48},
   {name:'Dr Diego Coelho', value:114.13},
   {name:'Imperio da Pizza', value:112.68},
+  {name:'Confia Pizzaria*', value:105.29},
   {name:'Pinoli', value:86.96},
   {name:'Acai do Cheff', value:49.69},
   {name:'Colegio CESEC', value:17.40},
