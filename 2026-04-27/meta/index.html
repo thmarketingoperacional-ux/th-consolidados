@@ -140,18 +140,18 @@
   <div class="kpi-row">
     <div class="kpi-card blue">
       <div class="label">Gasto Total da Semana</div>
-      <div class="value">R$ 4.890,50</div>
-      <div class="sub">+21% vs S3 (R$ 4.038,29)</div>
+      <div class="value">R$ 5.133,78</div>
+      <div class="sub">+27% vs S3 (R$ 4.038,29) &mdash; inclui Brandao manual</div>
     </div>
     <div class="kpi-card green">
       <div class="label">Clientes Saudaveis</div>
-      <div class="value">16</div>
+      <div class="value">17</div>
       <div class="sub">CPA dentro do benchmark</div>
     </div>
     <div class="kpi-card yellow">
       <div class="label">Monitorar</div>
-      <div class="value">4</div>
-      <div class="sub">CPA subindo moderadamente</div>
+      <div class="value">5</div>
+      <div class="sub">CPA subindo ou sinais de risco</div>
     </div>
     <div class="kpi-card red">
       <div class="label">Atencao Urgente</div>
@@ -174,6 +174,7 @@
         <li><span class="prio-num green">7</span> <strong>Mapua &mdash; ZAP virou</strong> &mdash; CPA caiu 68% (R$ 2,37 &rarr; R$ 0,75). Excelente recuperacao apos alerta da S3</li>
         <li><span class="prio-num green">8</span> <strong>Rei do Lanche + Acai da Manu</strong> &mdash; VOLTOU a veicular (R$ 553 vs R$ 0 na S3). Cartao resolvido</li>
         <li><span class="prio-num green">9</span> <strong>Atacaled Pavuna</strong> &mdash; CPA -40% (R$ 7,74 &rarr; R$ 4,66). Saiu do amarelo para verde</li>
+        <li><span class="prio-num yellow">10</span> <strong>Brandao Burguers</strong> &mdash; CPA otimo (R$ 1,36) mas gasto superando teto mensal de R$ 980. Ajustar diarios + retomar analise de cardapio (pendente desde 16/04)</li>
       </ol>
     </div>
   </div>
@@ -471,6 +472,20 @@
               <td><span class="status green">Saudavel</span></td>
               <td>R$ 164,73</td><td>R$ 150</td><td>110%</td>
             </tr>
+            <tr>
+              <td>29</td><td>Brandao Burguers <small>(parecer manual)</small></td><td>VENDAS</td>
+              <td>R$ 1,36</td><td>&mdash;</td>
+              <td class="var-neutral">&mdash;</td>
+              <td><span class="status green">Saudavel</span></td>
+              <td>R$ 243,28</td><td>R$ 245/sem</td><td>99%</td>
+            </tr>
+            <tr>
+              <td>30</td><td>Confia Pizzaria <small>(parecer manual)</small></td><td>&mdash;</td>
+              <td>&mdash;</td><td>&mdash;</td>
+              <td class="var-neutral">&mdash;</td>
+              <td><span class="status yellow">Monitorar</span></td>
+              <td>&mdash;</td><td>&mdash;</td><td>&mdash;</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -482,6 +497,34 @@
     <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Gasto Semanal por Cliente</div>
     <div class="section-content">
       <div class="bar-chart" id="barChart"></div>
+    </div>
+  </div>
+
+  <!-- Clientes sem MCP -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Clientes sem MCP &mdash; parecer manual</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card green">
+          <div class="alert-title">Brandao Burguers</div>
+          <div class="alert-body">
+            <strong>S4 (21-27/04):</strong> 179 compras / R$ 243,28 / CPA medio R$ 1,36 (excelente).<br>
+            <strong>30d:</strong> ~923 compras a CPA ~R$ 1,00 &mdash; conta muito estavel.<br>
+            <strong>Atencao:</strong> orcamento mensal acordado e R$ 980 (com imposto). Gasto esta superando levemente esse teto &mdash; precisa ajustar diarios.<br>
+            <strong>Pendencia da agencia:</strong> analise de cardapio iniciada em 16/04 mas parada (faltam dados solicitados ao cliente).
+          </div>
+          <div class="alert-action">Ajustar diarios pra bater R$ 980/mes + retomar analise de cardapio</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Confia Pizzaria</div>
+          <div class="alert-body">
+            Cliente <strong>nao responde ha semanas</strong>. Campanhas seguem rodando normalmente sem intervencao.<br>
+            Cliente "morno" &mdash; ainda <strong>nao apontou bons resultados</strong> das campanhas.<br>
+            Risco passivo: ausencia + sem retorno positivo.
+          </div>
+          <div class="alert-action">Tentar contato proativo &mdash; se silencio passar de +1-2 semanas, escalar</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -675,6 +718,7 @@ const clients = [
   {name:'Carne de Sol', value:502.69},
   {name:'TH Marketing', value:428.98},
   {name:'Camilla Carius', value:316.54},
+  {name:'Brandao Burguers*', value:243.28},
   {name:'Tradica Pizzaria', value:207.78},
   {name:'Paiva Odonto', value:188.52},
   {name:'TK9 Eletrica', value:168.29},
