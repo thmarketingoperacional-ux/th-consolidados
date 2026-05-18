@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consolidado Semanal — TH Marketing | 11/05 a 17/05/2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e0e0e6;
+    --text-muted: #8b8fa3;
+    --green: #34d399;
+    --green-bg: rgba(52,211,153,.12);
+    --yellow: #fbbf24;
+    --yellow-bg: rgba(251,191,36,.12);
+    --red: #f87171;
+    --red-bg: rgba(248,113,113,.12);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96,165,250,.12);
+    --purple: #a78bfa;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 24px 20px; }
+  .header { margin-bottom: 32px; }
+  .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+  .header-meta { display: flex; gap: 24px; flex-wrap: wrap; color: var(--text-muted); font-size: .85rem; }
+  .banner { background: var(--yellow-bg); border-left: 4px solid var(--yellow); padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; font-size: .88rem; }
+  .banner strong { color: var(--yellow); }
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .kpi-card .label { font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); margin-bottom: 6px; }
+  .kpi-card .value { font-size: 1.6rem; font-weight: 700; }
+  .kpi-card .sub { font-size: .8rem; color: var(--text-muted); margin-top: 4px; }
+  .kpi-card.green .value { color: var(--green); }
+  .kpi-card.yellow .value { color: var(--yellow); }
+  .kpi-card.red .value { color: var(--red); }
+  .kpi-card.blue .value { color: var(--blue); }
+  .section { margin-bottom: 32px; }
+  .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .section-title .toggle { font-size: .7rem; color: var(--text-muted); transition: transform .2s; }
+  .section-title.collapsed .toggle { transform: rotate(-90deg); }
+  .section-content { overflow: hidden; }
+  .section-content.hidden { display: none; }
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  thead th { background: var(--card); padding: 12px 14px; text-align: left; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .4px; color: var(--text-muted); border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; }
+  thead th:hover { color: var(--text); }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  tbody tr:hover { background: rgba(255,255,255,.03); }
+  tbody tr.total-row { background: rgba(96,165,250,.06); font-weight: 600; }
+  tbody tr:last-child td { border-bottom: none; }
+  .status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+  .status.green { background: var(--green-bg); color: var(--green); }
+  .status.yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .status.red { background: var(--red-bg); color: var(--red); }
+  .status.paused { background: rgba(139,143,163,.12); color: var(--text-muted); }
+  .status.new { background: var(--blue-bg); color: var(--blue); }
+  .var-positive { color: var(--red); }
+  .var-negative { color: var(--green); }
+  .var-neutral { color: var(--text-muted); }
+  .alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+  .alert-card { background: var(--card); border-radius: 12px; padding: 20px; border-left: 4px solid; }
+  .alert-card.red { border-left-color: var(--red); }
+  .alert-card.yellow { border-left-color: var(--yellow); }
+  .alert-card.blue { border-left-color: var(--blue); }
+  .alert-card.green { border-left-color: var(--green); }
+  .alert-card .alert-title { font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
+  .alert-card .alert-body { font-size: .83rem; color: var(--text-muted); line-height: 1.6; }
+  .alert-card .alert-body strong { color: var(--text); }
+  .alert-card .alert-action { margin-top: 12px; font-size: .82rem; padding: 8px 12px; border-radius: 8px; font-weight: 600; }
+  .alert-card.red .alert-action { background: var(--red-bg); color: var(--red); }
+  .alert-card.yellow .alert-action { background: var(--yellow-bg); color: var(--yellow); }
+  .alert-card.blue .alert-action { background: var(--blue-bg); color: var(--blue); }
+  .alert-card.green .alert-action { background: var(--green-bg); color: var(--green); }
+  .opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .opp-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .opp-card .opp-name { font-weight: 700; font-size: .95rem; margin-bottom: 4px; }
+  .opp-card .opp-cpa { color: var(--green); font-size: 1.2rem; font-weight: 700; }
+  .opp-card .opp-note { font-size: .8rem; color: var(--text-muted); margin-top: 8px; }
+  .priority-list { list-style: none; }
+  .priority-list li { padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; font-size: .88rem; display: flex; align-items: center; gap: 10px; }
+  .priority-list .prio-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; flex-shrink: 0; }
+  .priority-list .prio-num.red { background: var(--red-bg); color: var(--red); }
+  .priority-list .prio-num.yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .priority-list .prio-num.green { background: var(--green-bg); color: var(--green); }
+  .priority-list .prio-num.blue { background: var(--blue-bg); color: var(--blue); }
+  .bar-chart { margin-top: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: .8rem; }
+  .bar-label { width: 180px; flex-shrink: 0; }
+  .bar-track { flex: 1; background: var(--border); border-radius: 4px; height: 18px; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-value { width: 100px; text-align: right; flex-shrink: 0; color: var(--text-muted); }
+  .glossary { display: grid; grid-template-columns: 1fr 2fr; gap: 8px 16px; font-size: .85rem; }
+  .glossary dt { font-weight: 600; color: var(--blue); }
+  .glossary dd { color: var(--text-muted); }
+  @media (max-width: 700px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    .alert-grid { grid-template-columns: 1fr; }
+    .glossary { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Consolidado Semanal &mdash; TH Marketing</h1>
+    <div class="header-meta">
+      <span>Periodo: 11/05 a 17/05/2026 (2a sem maio)</span>
+      <span>Gerado em: 18/05/2026</span>
+      <span>Plataforma: Meta Ads</span>
+    </div>
+  </div>
+
+  <div class="banner">
+    <strong>Versao Meta-only.</strong> Google Ads pendente desta semana (rodar <code>consolidado-google.py</code> manualmente). Brandao Burguers e Confia Pizzaria tambem pendentes de parecer manual.
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card blue">
+      <div class="label">Gasto Total da Semana</div>
+      <div class="value">R$ 5.502,73</div>
+      <div class="sub">-2,6% vs S1/mai (R$ 5.648,16) &mdash; sem Brandao</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="label">Gasto Mes Acumulado</div>
+      <div class="value">R$ 13.521,14</div>
+      <div class="sub">Maio S1 + S2</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="label">Clientes Saudaveis</div>
+      <div class="value">11</div>
+      <div class="sub">CPA dentro do benchmark</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="label">Monitorar</div>
+      <div class="value">6</div>
+      <div class="sub">CPA subindo ou cliente em risco</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="label">Atencao Urgente</div>
+      <div class="value">3</div>
+      <div class="sub">CPA critico ou problema operacional</div>
+    </div>
+  </div>
+
+  <!-- Prioridades da Semana -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Prioridades da Semana</div>
+    <div class="section-content">
+      <ol class="priority-list">
+        <li><span class="prio-num red">1</span> <strong>TK9 Eletrica &mdash; gasto + CPA piorando juntos</strong>. Gasto R$ 197,19 &rarr; R$ 66,35 (-66%). CPA R$ 5,06 &rarr; R$ 7,37 (+46%). Padrao de saldo curto / cartao zerando. <strong>Alinhar recarga AGORA.</strong></li>
+        <li><span class="prio-num red">2</span> <strong>Atacaled Pavuna &mdash; piorando 2 sem apos volta</strong>. CPA R$ 5,09 &rarr; R$ 7,70 (+51%). 15 conversas (vs 29). Hipotese: criativo Locais cansando.</li>
+        <li><span class="prio-num red">3</span> <strong>Carne de Sol &mdash; CPA VENDAS dobrou</strong>. R$ 2,43 &rarr; R$ 5,05 (+108%). Saida em curso (decisao 12/05): deixar rodar ate saldo zerar, sem ajustes.</li>
+        <li><span class="prio-num yellow">4</span> <strong>Imperio Beer Club &mdash; 2a sem de leve piora</strong>. R$ 3,17 &rarr; R$ 4,56 (+44%). Volume caiu (48 &rarr; 34 conv). Revisar criativos.</li>
+        <li><span class="prio-num yellow">5</span> <strong>TH Marketing 3 &mdash; escalou e CPA piorou</strong>. Subiu R$ 105 &rarr; R$ 356, CPA R$ 6,56 &rarr; R$ 8,89 (+35%). Esperado em escala.</li>
+        <li><span class="prio-num green">6</span> <strong>Dra Andrea Vasco &mdash; voltou a pagar!</strong> R$ 131,77 / 568 cliques / CPC R$ 0,23.</li>
+        <li><span class="prio-num green">7</span> <strong>CESEC &mdash; saldo recarregado</strong>. R$ 31 &rarr; R$ 197. CPA estavel em R$ 7,91.</li>
+        <li><span class="prio-num green">8</span> <strong>Mapua segue forte</strong>. 525 conversas + 354 compras Pixel em R$ 614,42. CPA conversa R$ 0,75.</li>
+        <li><span class="prio-num green">9</span> <strong>Pinoli e Du Gomes melhoraram sozinhos</strong>. Pinoli R$ 4,83 &rarr; R$ 3,71 (-23%); Du Gomes R$ 3,28 &rarr; R$ 2,89 (-12%).</li>
+        <li><span class="prio-num blue">10</span> <strong>Choperia Raiz &mdash; 4a sem zerada</strong>. Churn confirmado. Remover da varredura.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Alertas Urgentes -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Alertas Urgentes</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card red">
+          <div class="alert-title">TK9 Eletrica &mdash; saldo curto + CPA piorando</div>
+          <div class="alert-body">
+            S1 &rarr; S2: gasto <strong>R$ 197,19 &rarr; R$ 66,35</strong> (-66%); CPA <strong>R$ 5,06 &rarr; R$ 7,37</strong> (+46%). So 9 conversas na semana. Padrao de saldo / cartao zerando &mdash; ja passou por isso antes.
+          </div>
+          <div class="alert-action">Alinhar recarga AGORA antes de zerar de vez</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Atacaled Pavuna &mdash; piorando 2 sem apos volta</div>
+          <div class="alert-body">
+            Voltou em S1 com 29 conversas a R$ 5,09. <strong>S2 caiu pra 15 conversas a R$ 7,70</strong> (+51%). Nao e so volume: o CPA realmente subiu. Hipotese: criativo Locais cansando.
+          </div>
+          <div class="alert-action">Se persistir em S3, renovar criativo Locais</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Carne de Sol &mdash; CPA VENDAS dobrou (saida em curso)</div>
+          <div class="alert-body">
+            CPA VENDAS <strong>R$ 2,43 &rarr; R$ 5,05</strong> (+108%). 54 compras em R$ 397,25. Gasto subiu por causa da campanha TFG-SITE rodando junto (R$ 130 / 1.312 cliques).
+          </div>
+          <div class="alert-action">Manter decisao 12/05: rodar ate saldo zerar, sem otimizacao</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recuperacoes (verde forte) -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Recuperacoes da Semana</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card green">
+          <div class="alert-title">Dra Andrea Vasco &mdash; pagou e voltou</div>
+          <div class="alert-body">
+            S1: R$ 0 (nao pagou) &rarr; S2: <strong>R$ 131,77</strong>. 568 cliques a CPC <strong>R$ 0,23</strong>. Padrao erratico de pagamento; quando paga, veicula bem.
+          </div>
+          <div class="alert-action">Manter cobranca recorrente da midia</div>
+        </div>
+        <div class="alert-card green">
+          <div class="alert-title">Colegio CESEC &mdash; saldo recarregado</div>
+          <div class="alert-body">
+            S1: R$ 31,07 (saldo zerando) &rarr; S2: <strong>R$ 197,64</strong> (recarga entrou). CPA estavel em R$ 7,91. 25 conversas.
+          </div>
+          <div class="alert-action">Confirmar proxima recarga antes de zerar de novo</div>
+        </div>
+        <div class="alert-card green">
+          <div class="alert-title">Pinoli &mdash; melhorou espontaneamente</div>
+          <div class="alert-body">
+            CPA <strong>R$ 4,83 &rarr; R$ 3,71</strong> (-23%). 21 conversas em R$ 77,96. Sem acao nova.
+          </div>
+          <div class="alert-action">Sustentar</div>
+        </div>
+        <div class="alert-card green">
+          <div class="alert-title">Du Gomes &mdash; melhorou + economizou</div>
+          <div class="alert-body">
+            CPA <strong>R$ 3,28 &rarr; R$ 2,89</strong> (-12%). Gasto R$ 78,73 &rarr; R$ 57,81. 20 conversas.
+          </div>
+          <div class="alert-action">Boa janela para escalar</div>
+        </div>
+        <div class="alert-card green">
+          <div class="alert-title">Rei + Acai da Manu &mdash; volume cresceu</div>
+          <div class="alert-body">
+            CPA <strong>R$ 2,95 &rarr; R$ 2,75</strong> (-7%). Volume 163 &rarr; 184 conv. Gasto R$ 480 &rarr; R$ 506.
+          </div>
+          <div class="alert-action">Sustentar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mapua destaque -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Mapua Salgados &mdash; 2a semana consistente</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card green">
+          <div class="alert-title">Estavel em volume alto</div>
+          <div class="alert-body">
+            Segunda semana de forca apos a recuperacao do cartao.<br><br>
+            <table style="width:100%; font-size:.82rem; border-collapse:collapse;">
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:6px 8px; color:var(--text-muted);">Metrica</td>
+                <td style="padding:6px 8px; color:var(--text-muted); text-align:right;">S1 mai</td>
+                <td style="padding:6px 8px; color:var(--text-muted); text-align:right;">S2 mai</td>
+              </tr>
+              <tr><td style="padding:6px 8px;">Gasto</td><td style="padding:6px 8px; text-align:right;">R$ 549,93</td><td style="padding:6px 8px; text-align:right;"><strong>R$ 614,42</strong> (+12%)</td></tr>
+              <tr><td style="padding:6px 8px;">Conversas iniciadas</td><td style="padding:6px 8px; text-align:right;">457</td><td style="padding:6px 8px; text-align:right;"><strong>525</strong> (+15%)</td></tr>
+              <tr><td style="padding:6px 8px;">CPA conversa</td><td style="padding:6px 8px; text-align:right;">R$ 0,72</td><td style="padding:6px 8px; text-align:right; color:var(--green);"><strong>R$ 0,75</strong></td></tr>
+              <tr><td style="padding:6px 8px;">Compras Pixel</td><td style="padding:6px 8px; text-align:right;">384</td><td style="padding:6px 8px; text-align:right;"><strong>354</strong></td></tr>
+              <tr><td style="padding:6px 8px;">CPA compra</td><td style="padding:6px 8px; text-align:right;">R$ 0,30</td><td style="padding:6px 8px; text-align:right; color:var(--green);"><strong>R$ 0,37</strong></td></tr>
+            </table>
+            <br>
+            <strong>Pendencia:</strong> confirmar com cliente se a operacao aguenta os ~500-600 leads/semana.
+          </div>
+          <div class="alert-action">Validar volume com cliente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela Geral -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Tabela Consolidada</div>
+    <div class="section-content">
+      <div class="table-wrap">
+        <table id="mainTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">#</th>
+              <th onclick="sortTable(1)">Cliente</th>
+              <th onclick="sortTable(2)">Tipo</th>
+              <th onclick="sortTable(3)">CPA S2</th>
+              <th onclick="sortTable(4)">CPA S1</th>
+              <th onclick="sortTable(5)">Var%</th>
+              <th onclick="sortTable(6)">Status</th>
+              <th onclick="sortTable(7)">Gasto S2</th>
+              <th onclick="sortTable(8)">Gasto Mes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Acai do Cheff</td><td>ENV-ZAP</td><td>R$ 2,45</td><td>R$ 2,46</td><td class="var-neutral">-0%</td><td><span class="status green">Saudavel</span></td><td>R$ 144,80</td><td>R$ 381,87</td></tr>
+            <tr><td>2</td><td>Atacaled Pavuna</td><td>ENV-ZAP</td><td>R$ 7,70</td><td>R$ 5,09</td><td class="var-positive">+51%</td><td><span class="status red">Alerta</span></td><td>R$ 115,52</td><td>R$ 263,10</td></tr>
+            <tr><td>3</td><td>Big Burguer</td><td>ENV-ZAP</td><td>R$ 1,45</td><td>R$ 1,49</td><td class="var-negative">-3%</td><td><span class="status green">Saudavel</span></td><td>R$ 131,66</td><td>R$ 326,14</td></tr>
+            <tr><td>4</td><td>Camilla Carius</td><td>ENV-ZAP+SEG</td><td>R$ 12,97 conv / R$ 10,20 seg</td><td>R$ 15,13 / R$ 10,44</td><td class="var-negative">-14%</td><td><span class="status yellow">Monitorar</span></td><td>R$ 307,59</td><td>R$ 725,24</td></tr>
+            <tr><td>5</td><td>Cantina do Cheff</td><td>ENV-ZAP</td><td>R$ 4,57</td><td>R$ 3,76</td><td class="var-positive">+22%</td><td><span class="status yellow">Monitorar</span></td><td>R$ 105,21</td><td>R$ 237,26</td></tr>
+            <tr><td>6</td><td>Carne de Sol &mdash; VENDAS</td><td>VENDAS+TFG</td><td>R$ 5,05 compra</td><td>R$ 2,43</td><td class="var-positive">+108%</td><td><span class="status red">Saida &mdash; rodando ate zerar</span></td><td>R$ 397,25</td><td>R$ 960,32</td></tr>
+            <tr><td>7</td><td>Choperia Raiz</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><span class="status red">4a sem zerada (churn)</span></td><td>R$ 0</td><td>R$ 0</td></tr>
+            <tr><td>8</td><td>Colegio CESEC</td><td>ENV-ZAP</td><td>R$ 7,91</td><td>R$ 7,77</td><td class="var-positive">+2%</td><td><span class="status green">Saldo recarregou</span></td><td>R$ 197,64</td><td>R$ 302,97</td></tr>
+            <tr><td>9</td><td>Digital Burger</td><td>TFG-SITE</td><td>R$ 0,21/clk</td><td>R$ 0,21/clk</td><td class="var-neutral">0%</td><td><span class="status green">Saudavel</span></td><td>R$ 1.093,17</td><td>R$ 2.720,55</td></tr>
+            <tr><td>10</td><td>Dr Diego Coelho</td><td>ENV-ZAP</td><td>R$ 15,78</td><td>R$ 15,83</td><td class="var-neutral">-0%</td><td><span class="status yellow">Monitorar (cartao?)</span></td><td>R$ 126,23</td><td>R$ 245,48</td></tr>
+            <tr><td>11</td><td>Dra Andrea Vasco</td><td>TFG</td><td>R$ 0,23/clk</td><td>&mdash; (zerada)</td><td class="var-negative">recuperou</td><td><span class="status green">Voltou</span></td><td>R$ 131,77</td><td>R$ 184,28</td></tr>
+            <tr><td>12</td><td>Dra Gilvanete (Meta)</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><span class="status paused">Pausada (so Google)</span></td><td>R$ 0</td><td>R$ 0</td></tr>
+            <tr><td>13</td><td>Du Gomes</td><td>ENV-ZAP</td><td>R$ 2,89</td><td>R$ 3,28</td><td class="var-negative">-12%</td><td><span class="status green">Saudavel</span></td><td>R$ 57,81</td><td>R$ 194,12</td></tr>
+            <tr><td>14</td><td>Imperio Beer Club</td><td>ENV-ZAP</td><td>R$ 4,56</td><td>R$ 3,17</td><td class="var-positive">+44%</td><td><span class="status yellow">2a sem subindo</span></td><td>R$ 155,07</td><td>R$ 374,92</td></tr>
+            <tr><td>15</td><td>Imperio da Pizza</td><td>ENV-ZAP</td><td>R$ 3,26</td><td>R$ 2,51</td><td class="var-positive">+30%</td><td><span class="status yellow">Monitorar</span></td><td>R$ 87,96</td><td>R$ 215,96</td></tr>
+            <tr><td>16</td><td>Mapua Salgados</td><td>ENV-ZAP+VENDAS</td><td>R$ 0,75 conv / R$ 0,37 compra</td><td>R$ 0,72 / R$ 0,30</td><td class="var-positive">+4%</td><td><span class="status green">Saudavel</span></td><td>R$ 614,42</td><td>R$ 1.164,35</td></tr>
+            <tr><td>17</td><td>MC Junior 2</td><td>ENV-ZAP</td><td>R$ 2,86</td><td>R$ 2,56</td><td class="var-positive">+12%</td><td><span class="status green">Saudavel</span></td><td>R$ 500,71</td><td>R$ 2.259,57</td></tr>
+            <tr><td>18</td><td>Paiva Odonto (Thais)</td><td>ENV-ZAP</td><td>R$ 10,23</td><td>R$ 10,67</td><td class="var-negative">-4%</td><td><span class="status green">Mantem recuperacao</span></td><td>R$ 184,09</td><td>R$ 433,19</td></tr>
+            <tr><td>19</td><td>Pinoli</td><td>ENV-ZAP</td><td>R$ 3,71</td><td>R$ 4,83</td><td class="var-negative">-23%</td><td><span class="status green">Recuperou</span></td><td>R$ 77,96</td><td>R$ 193,81</td></tr>
+            <tr><td>20</td><td>Rei + Acai da Manu</td><td>ENV-ZAP</td><td>R$ 2,75</td><td>R$ 2,95</td><td class="var-negative">-7%</td><td><span class="status green">Saudavel</span></td><td>R$ 505,70</td><td>R$ 1.187,09</td></tr>
+            <tr><td>21</td><td>TH Marketing 3</td><td>ENG-ZAP</td><td>R$ 8,89</td><td>R$ 6,56</td><td class="var-positive">+35%</td><td><span class="status yellow">Escalando</span></td><td>R$ 355,59</td><td>R$ 460,52</td></tr>
+            <tr><td>22</td><td>TK9 Eletrica</td><td>ENV-ZAP</td><td>R$ 7,37</td><td>R$ 5,06</td><td class="var-positive">+46%</td><td><span class="status red">Saldo curto</span></td><td>R$ 66,35</td><td>R$ 263,54</td></tr>
+            <tr><td>23</td><td>Tradica Pizzaria</td><td>ENV-ZAP</td><td>R$ 1,87</td><td>R$ 1,97</td><td class="var-negative">-5%</td><td><span class="status green">Saudavel</span></td><td>R$ 146,23</td><td>R$ 426,86</td></tr>
+            <tr><td>24</td><td>Vo Linda</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><span class="status red">Saida + fatura aberta</span></td><td>R$ 0</td><td>R$ 0</td></tr>
+            <tr><td>25</td><td>Brandao Burguers</td><td>VENDAS</td><td>pendente</td><td>R$ 1,48</td><td>&mdash;</td><td><span class="status new">Aguardando print</span></td><td>&mdash;</td><td>&mdash;</td></tr>
+            <tr><td>26</td><td>Confia Pizzaria</td><td>&mdash;</td><td>&mdash;</td><td>R$ 2,85</td><td>&mdash;</td><td><span class="status red">Em saida</span></td><td>&mdash;</td><td>&mdash;</td></tr>
+            <tr class="total-row"><td></td><td>TOTAL (Meta, sem Brandao)</td><td></td><td></td><td></td><td></td><td></td><td>R$ 5.502,73</td><td>R$ 13.521,14</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gasto Bar Chart -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Gasto por Cliente (S2)</div>
+    <div class="section-content">
+      <div class="bar-chart" id="barChart"></div>
+    </div>
+  </div>
+
+  <!-- Monitorar -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Monitorar (amarelo)</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card yellow">
+          <div class="alert-title">Camilla Carius</div>
+          <div class="alert-body">ENV-ZAP melhorou (R$ 15,13 &rarr; R$ 12,97), volume cresceu 16 &rarr; 19. SEG estavel. Mes acumulado R$ 725 / orcamento R$ 1.600 &mdash; no ritmo.</div>
+          <div class="alert-action">Direcao certa &mdash; seguir monitorando</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Cantina do Cheff</div>
+          <div class="alert-body">CPA R$ 3,76 &rarr; R$ 4,57 (+22%). Primeira semana de piora. Volume caiu (28 &rarr; 23 conv) com gasto identico.</div>
+          <div class="alert-action">Observar S3 antes de intervir</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Imperio Beer Club</div>
+          <div class="alert-body">2a semana de piora gradual: S5/abr R$ 2,22 &rarr; S1 R$ 3,17 &rarr; S2 R$ 4,56. Volume 48 &rarr; 34.</div>
+          <div class="alert-action">Revisar criativos (provavel cansaco)</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Imperio da Pizza</div>
+          <div class="alert-body">CPA R$ 2,51 &rarr; R$ 3,26 (+30%). Ainda dentro da faixa realista (R$ 3-5), mas voltou da recuperacao espontanea de S1.</div>
+          <div class="alert-action">Observar S3</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Dr Diego Coelho</div>
+          <div class="alert-body">CPA estavel R$ 15,78 (vs R$ 15,83) mas ainda alto. Gasto subiu R$ 79 &rarr; R$ 126 &mdash; cartao parece ter resolvido.</div>
+          <div class="alert-action">Confirmar status do cartao</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">TH Marketing 3 &mdash; conta interna em escala</div>
+          <div class="alert-body">Subiu R$ 105 &rarr; R$ 356 (3,4x), CPA R$ 6,56 &rarr; R$ 8,89 (+35%). Volume cresceu 16 &rarr; 40 conv &mdash; escala funciona, mas CPA piorou.</div>
+          <div class="alert-action">Observar S3 antes de mexer em criativo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Oportunidades -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Oportunidades de Escala</div>
+    <div class="section-content">
+      <div class="opp-grid">
+        <div class="opp-card">
+          <div class="opp-name">Mapua Salgados</div>
+          <div class="opp-cpa">R$ 0,75 / R$ 0,37</div>
+          <div class="opp-note">2a sem forte. Validar operacao do cliente antes de escalar.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Big Burguer</div>
+          <div class="opp-cpa">R$ 1,45</div>
+          <div class="opp-note">5+ sem consistentes. Pode escalar.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Tradica Pizzaria</div>
+          <div class="opp-cpa">R$ 1,87</div>
+          <div class="opp-note">Estavel e excelente.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Rei + Manu</div>
+          <div class="opp-cpa">R$ 2,75</div>
+          <div class="opp-note">Melhorou + volume cresceu.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Acai do Cheff</div>
+          <div class="opp-cpa">R$ 2,45</div>
+          <div class="opp-note">Estavel ha 3 semanas.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Du Gomes</div>
+          <div class="opp-cpa">R$ 2,89</div>
+          <div class="opp-note">Melhorou espontaneamente.</div>
+        </div>
+        <div class="opp-card">
+          <div class="opp-name">Digital Burger</div>
+          <div class="opp-cpa">R$ 0,21/clk</div>
+          <div class="opp-note">Estavel em alta verba.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pausados / Saidas -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Pausados, Saidas e Contexto</div>
+    <div class="section-content">
+      <div class="alert-grid">
+        <div class="alert-card red">
+          <div class="alert-title">Choperia Raiz &mdash; churn confirmado</div>
+          <div class="alert-body"><strong>4a semana consecutiva zerada.</strong> Tratar como churn definitivo. Remover da varredura no proximo consolidado.</div>
+          <div class="alert-action">Remover da varredura ativa</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Vo Linda &mdash; saida + fatura aberta</div>
+          <div class="alert-body">Sem veiculacao. Prioridade da agencia: cobrar fatura e fechar saida.</div>
+          <div class="alert-action">Cobrar fatura + fechar saida</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Confia Pizzaria &mdash; em saida (fechamento)</div>
+          <div class="alert-body">Cliente vai trazer quadro final do fechamento do negocio. Sem MCP; status detalhado pendente de parecer manual.</div>
+          <div class="alert-action">Aguardar quadro final</div>
+        </div>
+        <div class="alert-card red">
+          <div class="alert-title">Carne de Sol &mdash; rodando ate saldo zerar</div>
+          <div class="alert-body">Saida confirmada 12/05. Sem novos criativos / sem ajustes. CPA VENDAS dobrou esta semana (R$ 5,05), mas decisao mantida: deixar rodar.</div>
+          <div class="alert-action">Monitorar balance semanal</div>
+        </div>
+        <div class="alert-card blue">
+          <div class="alert-title">Dra Gilvanete (Meta) &mdash; pausada</div>
+          <div class="alert-body">Continua pausada no Meta. Veicula so no Google. Status Google pendente desta semana.</div>
+          <div class="alert-action">Nenhuma acao no Meta</div>
+        </div>
+        <div class="alert-card yellow">
+          <div class="alert-title">Brandao Burguers &mdash; parecer manual pendente</div>
+          <div class="alert-body">Sem acesso via MCP. Pendencia antiga (teto mensal R$ 980 sendo furado) segue aberta.</div>
+          <div class="alert-action">Pedir print da semana ao gestor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pendencias da agencia -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Pendencias da Agencia (carryover)</div>
+    <div class="section-content">
+      <ul style="list-style:none; padding-left:0;">
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>TK9 Eletrica</strong> &mdash; alinhar recarga / cartao antes do saldo zerar de vez</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Atacaled Pavuna</strong> &mdash; se CPA persistir em S3, revisar criativo Locais</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Brandao Burguers</strong> &mdash; receber print + <strong>ajustar diarios</strong> (teto R$ 980 sendo estourado)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Brandao Burguers</strong> &mdash; analise de cardapio (iniciada 16/04, parada &mdash; faltam dados)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Mapua</strong> &mdash; validar com cliente se operacao aguenta o volume (~500 leads/sem)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>CESEC</strong> &mdash; confirmar proxima recarga antes de zerar de novo</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Vo Linda</strong> &mdash; cobrar fatura em aberto + fechar saida</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Carne de Sol</strong> &mdash; monitorar balance semanalmente; encerrar quando zerar</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Confia Pizzaria</strong> &mdash; aguardar quadro final do fechamento</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Choperia Raiz</strong> &mdash; remover da varredura proxima semana (4 sem zeradas)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border);"><strong>Dr Diego</strong> &mdash; acompanhar resolucao do cartao</li>
+        <li style="padding:8px 0;"><strong>Google Ads</strong> &mdash; rodar <code>consolidado-google.py</code> manualmente (script travou via uv esta semana)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Glossario -->
+  <div class="section">
+    <div class="section-title" onclick="toggleSection(this)"><span class="toggle">&#9660;</span> Glossario</div>
+    <div class="section-content">
+      <dl class="glossary">
+        <dt>CPA (Custo por Acao)</dt>
+        <dd>Quanto custou cada resultado da campanha. Para ENV-ZAP = custo por conversa iniciada no WhatsApp; para VENDAS = custo por compra (via Pixel); para LEAD = custo por cadastro; para TFG = custo por clique no link.</dd>
+
+        <dt>CPA S2 / CPA S1</dt>
+        <dd>CPA S2 = CPA da semana atual (11/05 a 17/05). CPA S1 = CPA da semana anterior (04/05 a 10/05).</dd>
+
+        <dt>Var%</dt>
+        <dd>Variacao entre CPA S2 e CPA S1. Negativo (verde) = CPA caiu (melhorou). Positivo (vermelho) = CPA subiu (piorou).</dd>
+
+        <dt>Tipo de campanha</dt>
+        <dd><strong>ENV-ZAP</strong>: gerar conversas no WhatsApp. <strong>ENG-ZAP</strong>: engajamento direcionando ao WhatsApp. <strong>VENDAS</strong>: compras no site (com Pixel). <strong>TFG-SITE</strong>: trafego para o site (KPI = custo por clique no link).</dd>
+
+        <dt>Status</dt>
+        <dd><strong>Saudavel</strong> = dentro do benchmark. <strong>Recuperou / Voltou</strong> = saiu de problema operacional. <strong>Monitorar</strong> = CPA acima do esperado em 1a-2a semana de alta. <strong>Saldo curto / Saida / Em saida</strong> = problema operacional ou comercial. <strong>Pausada</strong> = sem veiculacao por decisao. <strong>Aguardando print</strong> = pendente de parecer manual.</dd>
+
+        <dt>Benchmark Delivery (ENV-ZAP)</dt>
+        <dd>Otimista: &lt; R$ 3 | Realista: R$ 3-5 | Atencao: R$ 5-7 | Alerta: &gt; R$ 7.</dd>
+
+        <dt>offsite_conversion.fb_pixel_purchase</dt>
+        <dd>Evento de compra disparado pelo Pixel do Facebook em um site externo (cardapio digital, Anota Ai). Pode ser "iniciou pedido" dependendo da configuracao.</dd>
+
+        <dt>CPM / CTR</dt>
+        <dd>CPM = custo por mil impressoes. CTR = cliques / impressoes. Em Meta delivery, CTR &gt; 2% costuma ser bom.</dd>
+
+        <dt>Imposto Meta</dt>
+        <dd>A Meta cobra 12,15% sobre o gasto declarado. Valores aqui sao liquidos (gerenciador); valores no boleto/cartao incluem imposto.</dd>
+      </dl>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleSection(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  content.classList.toggle('hidden');
+}
+
+const clients = [
+  {name:'Digital Burger', value:1093.17},
+  {name:'Mapua Salgados', value:614.42},
+  {name:'Rei + Manu', value:505.70},
+  {name:'MC Junior 2', value:500.71},
+  {name:'Carne de Sol', value:397.25},
+  {name:'TH Marketing 3', value:355.59},
+  {name:'Camilla Carius', value:307.59},
+  {name:'Colegio CESEC', value:197.64},
+  {name:'Paiva Odonto', value:184.09},
+  {name:'Imperio Beer Club', value:155.07},
+  {name:'Tradica Pizzaria', value:146.23},
+  {name:'Acai do Cheff', value:144.80},
+  {name:'Big Burguer', value:131.66},
+  {name:'Dra Andrea Vasco', value:131.77},
+  {name:'Dr Diego Coelho', value:126.23},
+  {name:'Atacaled Pavuna', value:115.52},
+  {name:'Cantina do Cheff', value:105.21},
+  {name:'Imperio da Pizza', value:87.96},
+  {name:'Pinoli', value:77.96},
+  {name:'TK9 Eletrica', value:66.35},
+  {name:'Du Gomes', value:57.81},
+  {name:'Choperia Raiz', value:0},
+  {name:'Dra Gilvanete', value:0},
+  {name:'Vo Linda', value:0},
+];
+const maxVal = clients[0].value;
+const chart = document.getElementById('barChart');
+
+clients.forEach(c => {
+  const pct = maxVal > 0 ? (c.value / maxVal * 100) : 0;
+  let color = 'var(--blue)';
+  if (c.value === 0) color = 'var(--red)';
+  else if (c.value < 80) color = 'var(--yellow)';
+  else if (c.value > 500) color = 'var(--green)';
+
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = `
+    <span class="bar-label">${c.name}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${Math.max(pct,1)}%;background:${color}"></div></div>
+    <span class="bar-value">R$ ${c.value.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+  `;
+  chart.appendChild(row);
+});
+
+let sortDir = {};
+function sortTable(col) {
+  const table = document.getElementById('mainTable');
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr:not(.total-row)'));
+  sortDir[col] = !sortDir[col];
+  const dir = sortDir[col] ? 1 : -1;
+
+  rows.sort((a,b) => {
+    let aVal = a.cells[col]?.textContent.trim() || '';
+    let bVal = b.cells[col]?.textContent.trim() || '';
+    const aNum = parseFloat(aVal.replace(/[R$\s%,]/g,'').replace(',','.'));
+    const bNum = parseFloat(bVal.replace(/[R$\s%,]/g,'').replace(',','.'));
+    if (!isNaN(aNum) && !isNaN(bNum)) return (aNum - bNum) * dir;
+    return aVal.localeCompare(bVal,'pt-BR') * dir;
+  });
+  const totalRow = tbody.querySelector('.total-row');
+  rows.forEach(r => tbody.insertBefore(r, totalRow));
+}
+</script>
+
+</body>
+</html>
